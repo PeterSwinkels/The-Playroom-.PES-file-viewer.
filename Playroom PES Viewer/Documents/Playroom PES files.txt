@@ -17,8 +17,8 @@ Offset:		Size:		Description:
 Other games that also use *.PES files:
 Title:				Company:	Year:	Compatible:
 Grand Prix Circuit		Accolade	1988	No.
-Outrun				SEGA		1989	Possibly.
-Stunts - 4D Sports - Driving	Mindscape	1990	Possibly.
+Outrun				SEGA		1989	Similar, but no.
+Stunts - 4D Sports - Driving	Mindscape	1990	Similar, but no.
 Test Drive			Accolade	1987	No.
 
 Notes:
