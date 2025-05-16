@@ -5,12 +5,9 @@ Option Infer Off
 Option Strict On
 
 Imports System
-Imports System.Collections.Generic
 Imports System.Drawing
 Imports System.Environment
-Imports System.IO
 Imports System.Linq
-Imports System.Text
 Imports System.Windows.Forms
 
 'This module contains this program's interface.
