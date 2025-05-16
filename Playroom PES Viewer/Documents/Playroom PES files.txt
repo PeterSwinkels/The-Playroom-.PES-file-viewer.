@@ -1,0 +1,27 @@
+This document describes what is known about Broderbund's The Playroom (1989) for MS-DOS *.PES files.
+
+Extension: *.PES
+Contents: Probably compressed sprites, animations and object labels.
+
+File structure:
+Offset:		Size:		Description:
+0x00		BYTE		Always 0x82. Signature?
+0x01		WORD		Various - unknown.
+0x03		BYTE		Always zero.
+0x04		BYTE		Always 0x02. Unknown.
+0x05		WORD		Various - unknown.
+0x07		BYTE		Always zero.
+0x09		WORD		Always zero.
+0x0B		VARIOUS		Probably compressed sprites, animations and labels - unknown.
+
+Other games that also use *.PES files:
+Title:				Company:	Year:	Compatible:
+Grand Prix Circuit		Accolade	1988	No.
+Outrun				SEGA		1989	Possibly.
+Stunts - 4D Sports - Driving	Mindscape	1990	Possibly.
+Test Drive			Accolade	1987	No.
+
+Notes:
+-There is a Macintosh version of The Playroom. Whether or not it uses the same *.PES files as the MS-DOS version is unknown.
+-The Microsoft Windows 3.x+ version of The Playroom (1994) uses an entirely different file formats and is not relevant here.
+
