@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class IntefaceWindow
+Partial Class InterfaceWindow
    Inherits System.Windows.Forms.Form
 
    'Form overrides dispose to clean up the component list.
@@ -27,9 +27,14 @@ Partial Class IntefaceWindow
         Me.DataBox = New System.Windows.Forms.TextBox()
         Me.MenuBar = New System.Windows.Forms.MenuStrip()
         Me.ProgramMainMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.InformationMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.QuitMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadFileMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProgramMainMenuSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.InformationMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProgramMainMenuSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.QuitMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.VerifyFolderMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FolderBrowserDialog = New System.Windows.Forms.FolderBrowserDialog()
         Me.MenuBar.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -51,19 +56,33 @@ Partial Class IntefaceWindow
         '
         'MenuBar
         '
+        Me.MenuBar.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MenuBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgramMainMenu})
         Me.MenuBar.Location = New System.Drawing.Point(0, 0)
         Me.MenuBar.Name = "MenuBar"
+        Me.MenuBar.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
         Me.MenuBar.Size = New System.Drawing.Size(800, 24)
         Me.MenuBar.TabIndex = 4
         Me.MenuBar.Text = "MenuStrip1"
         '
         'ProgramMainMenu
         '
-        Me.ProgramMainMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InformationMenu, Me.ProgramMainMenuSeparator1, Me.QuitMenu})
+        Me.ProgramMainMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadFileMenu, Me.VerifyFolderMenu, Me.ProgramMainMenuSeparator1, Me.InformationMenu, Me.ProgramMainMenuSeparator2, Me.QuitMenu})
         Me.ProgramMainMenu.Name = "ProgramMainMenu"
         Me.ProgramMainMenu.Size = New System.Drawing.Size(65, 20)
         Me.ProgramMainMenu.Text = "&Program"
+        '
+        'LoadFileMenu
+        '
+        Me.LoadFileMenu.Name = "LoadFileMenu"
+        Me.LoadFileMenu.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
+        Me.LoadFileMenu.Size = New System.Drawing.Size(180, 22)
+        Me.LoadFileMenu.Text = "&Load File"
+        '
+        'ProgramMainMenuSeparator1
+        '
+        Me.ProgramMainMenuSeparator1.Name = "ProgramMainMenuSeparator1"
+        Me.ProgramMainMenuSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'InformationMenu
         '
@@ -72,6 +91,11 @@ Partial Class IntefaceWindow
         Me.InformationMenu.Size = New System.Drawing.Size(180, 22)
         Me.InformationMenu.Text = "&Information"
         '
+        'ProgramMainMenuSeparator2
+        '
+        Me.ProgramMainMenuSeparator2.Name = "ProgramMainMenuSeparator2"
+        Me.ProgramMainMenuSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
         'QuitMenu
         '
         Me.QuitMenu.Name = "QuitMenu"
@@ -79,12 +103,19 @@ Partial Class IntefaceWindow
         Me.QuitMenu.Size = New System.Drawing.Size(180, 22)
         Me.QuitMenu.Text = "&Quit"
         '
-        'ProgramMainMenuSeparator1
+        'OpenFileDialog
         '
-        Me.ProgramMainMenuSeparator1.Name = "ProgramMainMenuSeparator1"
-        Me.ProgramMainMenuSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.OpenFileDialog.Filter = "*.PES files|*.PES"
+        Me.OpenFileDialog.RestoreDirectory = True
         '
-        'IntefaceWindow
+        'VerifyFolderMenu
+        '
+        Me.VerifyFolderMenu.Name = "VerifyFolderMenu"
+        Me.VerifyFolderMenu.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
+        Me.VerifyFolderMenu.Size = New System.Drawing.Size(180, 22)
+        Me.VerifyFolderMenu.Text = "&Verify Folder"
+        '
+        'InterfaceWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -93,7 +124,7 @@ Partial Class IntefaceWindow
         Me.Controls.Add(Me.MenuBar)
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuBar
-        Me.Name = "IntefaceWindow"
+        Me.Name = "InterfaceWindow"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.MenuBar.ResumeLayout(False)
         Me.MenuBar.PerformLayout()
@@ -109,4 +140,9 @@ Partial Class IntefaceWindow
     Friend WithEvents InformationMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents QuitMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProgramMainMenuSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents LoadFileMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ProgramMainMenuSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents VerifyFolderMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FolderBrowserDialog As System.Windows.Forms.FolderBrowserDialog
 End Class

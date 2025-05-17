@@ -20,6 +20,12 @@ Grand Prix Circuit		Accolade	1988	No.
 Outrun				SEGA		1989	Similar, but no.
 Stunts - 4D Sports - Driving	Mindscape	1990	Similar, but no.
 Test Drive			Accolade	1987	No.
+Wings of Fury			Broderbund	1989	Similar, but no.
+
+Investigated games that do not use *.PES files:
+Title:					Company:	Year:
+Shufflepuck Cafe			Broderbund	1989
+Where in Time is Carmen Sandiego	Broderbund	1989
 
 Notes:
 -There is a Macintosh version of The Playroom. Whether or not it uses the same *.PES files as the MS-DOS version is unknown.

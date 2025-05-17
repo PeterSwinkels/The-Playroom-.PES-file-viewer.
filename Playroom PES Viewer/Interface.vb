@@ -11,7 +11,7 @@ Imports System.Linq
 Imports System.Windows.Forms
 
 'This module contains this program's interface.
-Public Class IntefaceWindow
+Public Class InterfaceWindow
    'This procedure initializes this window.
    Public Sub New()
       Try
@@ -27,7 +27,11 @@ Public Class IntefaceWindow
 
          ToolTip.SetToolTip(DataBox, "Drag a file into this window to view it.")
 
-         UpdateDataBox( , NewDataBox:=DataBox)
+         UpdateDataBox(, NewDataBox:=DataBox)
+
+         If GetCommandLineArgs.Count > 1 Then
+            DisplayPESFile(GetCommandLineArgs.Last())
+         End If
       Catch ExceptionO As Exception
          DisplayException(ExceptionO)
       End Try
@@ -36,14 +40,8 @@ Public Class IntefaceWindow
    'This procedure gives the command to load the file dropped into the data box.
    Private Sub DataBox_DragDrop(sender As Object, e As DragEventArgs) Handles DataBox.DragDrop
       Try
-         Dim FileData As String = Nothing
-         Dim FileName As String = Nothing
-
          If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            FileName = DirectCast(e.Data.GetData(DataFormats.FileDrop), String()).First
-            FileData = Escape(LoadPES(FileName),, EscapeAll:=True)
-            FileData = $"{FileName}{NewLine}{NewLine}Data:{NewLine}{FileData}"
-            UpdateDataBox(FileData)
+            DisplayPESFile(DirectCast(e.Data.GetData(DataFormats.FileDrop), String()).First)
          End If
       Catch ExceptionO As Exception
          DisplayException(ExceptionO)
@@ -70,10 +68,45 @@ Public Class IntefaceWindow
       End Try
    End Sub
 
+   'This procedure displays the dialog for loading a *.PES file.
+   Private Sub LoadFileMenu_Click(sender As Object, e As EventArgs) Handles LoadFileMenu.Click
+      Try
+         With OpenFileDialog
+            If .ShowDialog() = DialogResult.OK Then
+               DisplayPESFile(.FileName)
+            End If
+         End With
+      Catch ExceptionO As Exception
+         DisplayException(ExceptionO)
+      End Try
+   End Sub
+
    'This procedure closes this window.
    Private Sub QuitMenu_Click(sender As Object, e As EventArgs) Handles QuitMenu.Click
       Try
          Me.Close()
+      Catch ExceptionO As Exception
+         DisplayException(ExceptionO)
+      End Try
+   End Sub
+
+   'This procedure gives the command to verify the *.PES files in a folder selected by the user in a dialog.
+   Private Sub VerifyFolderMenu_Click(sender As Object, e As EventArgs) Handles VerifyFolderMenu.Click
+      Try
+         With New FolderBrowserDialog
+            If .ShowDialog() = DialogResult.OK Then
+               MessageBox.Show($"The following files have been verified as potential The Playroom *.PES files:{NewLine}{VerifyFolder(.SelectedPath)}", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+         End With
+      Catch ExceptionO As Exception
+         DisplayException(ExceptionO)
+      End Try
+   End Sub
+
+   'This procedure gives the command to load the specified *.PES file and displays it.
+   Private Sub DisplayPESFile(FileName As String)
+      Try
+         UpdateDataBox($"File: ""{FileName}""{NewLine}{NewLine}Data:{NewLine}{Escape(LoadPES(FileName),, EscapeAll:=True)}")
       Catch ExceptionO As Exception
          DisplayException(ExceptionO)
       End Try

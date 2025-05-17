@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-         Me.MainForm = Global.PlayroomPESViewerProgram.IntefaceWindow
+         Me.MainForm = Global.PlayroomPESViewerProgram.InterfaceWindow
       End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _

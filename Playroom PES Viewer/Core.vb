@@ -18,9 +18,10 @@ Imports System.Windows.Forms
 Public Module CoreModule
    Private Const SIGNATURE As Byte = &H82%   'Defines the *.PES file signature.
 
-   Private ReadOnly BYTES_TO_TEXT As Func(Of List(Of Byte), String) = Function(Bytes As List(Of Byte)) New String((From ByteO In Bytes Select ToChar(ByteO)).ToArray())                                                                               'This procedure returns the specified bytes converted to text.
+   Private ReadOnly BYTES_TO_TEXT As Func(Of List(Of Byte), String) = Function(Bytes As List(Of Byte)) New String((From ByteO In Bytes Select ToChar(ByteO)).ToArray())   'This procedure returns the specified bytes converted to text.
+   Private ReadOnly FIXED_VALUES As New List(Of Tuple(Of Integer, Byte))                                                                                                  'Defines a list of values that are the same in every *.PES file and their position.
 
-   'This procudure displays the message describing the specified exception.
+   'This procedure displays the message describing the specified exception.
    Public Sub DisplayException(ExceptionO As Exception)
       Try
          If MessageBox.Show(ExceptionO.Message, My.Application.Info.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Error) = DialogResult.Cancel Then
@@ -31,7 +32,7 @@ Public Module CoreModule
       End Try
    End Sub
 
-   'This procedure returns the specified text with any non-displayable or all charactes converted to escape sequences.
+   'This procedure returns the specified text with any non-displayable or all characters converted to escape sequences.
    Public Function Escape(ToEscape As Object, Optional EscapeCharacter As Char = "/"c, Optional EscapeAll As Boolean = False) As String
       Try
          Dim Character As New Char
@@ -70,13 +71,16 @@ Public Module CoreModule
       Try
          Dim Data As New List(Of Byte)(File.ReadAllBytes(FileName))
 
-         If Data.First = SIGNATURE Then
-            Return Data
-         Else
+         If Not Data.First = SIGNATURE Then
+            Data = New List(Of Byte)
             MessageBox.Show($"""{FileName}"" is not a valid The Playroom *.PES file.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
          End If
 
-         Return New List(Of Byte)
+         If Not VerifyFixedValues(Data) Then
+            MessageBox.Show($"""{FileName}"" does not contain the expected fixed values.", My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+         End If
+
+         Return Data
       Catch ExceptionO As Exception
          DisplayException(ExceptionO)
       End Try
@@ -115,4 +119,47 @@ Public Module CoreModule
          DisplayException(ExceptionO)
       End Try
    End Sub
+
+   'This procedure verifies whether the fixed values are present in the specified data and returns the result.
+   Private Function VerifyFixedValues(Data As List(Of Byte)) As Boolean
+      Try
+         Dim Verified As Boolean = True
+
+         If FIXED_VALUES.Count = 0 Then
+            FIXED_VALUES.AddRange({Tuple.Create(&H0%, SIGNATURE), Tuple.Create(&H3%, ToByte(&H0%)), Tuple.Create(&H4%, ToByte(&H2%)), Tuple.Create(&H7%, ToByte(&H0%)), Tuple.Create(&H9%, ToByte(&H0%)), Tuple.Create(&HA%, ToByte(&H0%))})
+         End If
+
+         For Each FixedValue As Tuple(Of Integer, Byte) In FIXED_VALUES
+            If Not (FixedValue.Item1 < Data.Count AndAlso Data(FixedValue.Item1) = FixedValue.Item2) Then
+               Verified = False
+               Exit For
+            End If
+         Next FixedValue
+
+         Return Verified
+      Catch ExceptionO As Exception
+         DisplayException(ExceptionO)
+      End Try
+
+      Return False
+   End Function
+
+   'This procedure gives the command to verify any *.PES files in the specified folder.
+   Public Function VerifyFolder(Path As String) As String
+      Try
+         Dim Verified As New StringBuilder
+
+         For Each PESFile As String In Directory.GetFiles(Path, "*.PES")
+            If VerifyFixedValues(File.ReadAllBytes(PESFile).ToList()) Then
+               Verified.Append($"{PESFile}{NewLine}")
+            End If
+         Next PESFile
+
+         Return Verified.ToString()
+      Catch ExceptionO As Exception
+         DisplayException(ExceptionO)
+      End Try
+
+      Return Nothing
+   End Function
 End Module
